@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise hamdson</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <h3>Question 1.</h3>
+  <h3>Write one example explaining how you can write a callback function.</h3>
+  <pre>
+        function number(a, b, callback) {
+            setTimeout(function () {
+              const result = a + b;
+              callback(result); 
+            }, 1000); 
+          }
+          
+          
+          function Result(sum) {
+            console.log("The sum is: " + sum);
+          }
+          
+          number(5, 7, Result);
+    </pre>
+  <h3>Question no. 2</h3>
+  <h3>"Write a callback function to print numbers from 1 to 7, in which 1 should be printed after 1 sec, 2 should be
+    printed after 2 sec, 3 should be printed after 3 sec, and so on.
+
+    Explain callback hell.
+    Numbers
+    1
+    2
+    3
+    4
+    5
+    6
+    7"</h3>
+  <pre>
+      Ans: function printDelay(number, delay, callback) {
+        setTimeout(function() {
+        console.log(number);
+        if (number < 7) {
+        printDelay(number + 1, delay + 1000, callback);
+        } else {
+        callback();
+        }
+        }, delay);
+        }
+        printDelay(1, 1000, function()
+        {
+        console.log("Numbers successfully!");
+        });
+        Call Back HEll :It is the term used to describe the situation where callBacks are nested with other callbacks,
+        resulting in deeply nested and hard-to-read code
+    </pre>
+
+  <h3>Question3</h3>
+  <h3>"Write the promise function to print numbers from 1 to 7, in which 1 should be printed after 1 sec, 2 should be
+    printed after 2 sec, 3 should be printed after 3 sec, and so on.
+    Numbers
+    1
+    2
+    3
+    4
+    5
+    6
+    7</h3>
+  <pre>
+      Ans: const printNumberWithDelay = (number, delay) => {
+        return new Promise((resolve) => {
+        setTimeout(() => {
+        console.log(number);
+        resolve();
+        }, delay);
+        });
+        };
+        const printSequentialNumbers = async () => {
+        const promises = [];
+        for (let i = 1; i <= 7; i++) {
+        promises.push(printNumberWithDelay(i, i * 1000));
+        }
+        await Promise.all(promises);
+        };
+        printSequentialNumbers();
+    </pre>
+
+  <h3>Question 4</h3>
+  <h3>Create a promise function accepting an argument, if yes is passed to the function then it should go to resolved
+    state and
+    print Promise Resolved, and if nothing is passed then it should go to reject the state and catch the error and print
+    Promise Rejected?</h3>
+  <pre>
+    Ans: function promiseArgument(argument) {
+      const promise = new Promise((resolve, reject) => {
+      if (argument === "yes") {
+      resolve("Promise Resolved");
+      } else {
+      reject("Promise Rejected");
+      }
+      });
+      return promise;
+      }
+      const promise1 = promiseArgument("yes");
+      const promise2 = promiseArgument("no");
+      promise1.then((value) => {
+      console.log(value);
+      });
+      promise2.catch((error) => {
+      console.log(error);
+      });
+      
+    </pre>
+  <h3>Question 5</h3>
+  <h3>Create examples to explain callback function?</h3>
+  <p>A callback function is a function that is passed as an argument to another function and is executed later, usually
+    after the completion of an asynchronous operation or at a specific event trigger</p>
+  <pre>
+    function greet(name, callback) {
+      console.log("Hello, " + name + "!");
+      callback();
+    }
+    
+    function sayGoodbye() {
+      console.log("Goodbye!");
+    }
+    
+    greet("Alice", sayGoodbye);
+   </pre>
+
+  <h3>Question 6</h3>
+  <h3>Create examples to explain callback hell function?</h3>
+  <p>Ans:Callback hell, also known as the pyramid of doom, is a
+    situation that arises in asynchronous programming when you have multiple
+    nested callbacks, making the code difficult to read, understand, and maintain.</p>
+  <pre>
+    function step1(callback) {
+      setTimeout(function() {
+        console.log("Step 1 completed");
+        callback();
+      }, 1000);
+    }
+    
+    function step2(callback) {
+      setTimeout(function() {
+        console.log("Step 2 completed");
+        callback();
+      }, 1500);
+    }
+    
+    function step3() {
+      setTimeout(function() {
+        console.log("Step 3 completed");
+        callback();
+      }, 500);
+    }
+
+    step1(function() {
+      step2(function() {
+          step3();
+        });
+      });
+  
+  </pre>
+
+  <h3>Question 7</h3>
+  <h3>Create examples to explain async await function?</h3>
+  <p>Ans: The async/await feature in JavaScript provides a more elegant and readable way to handle asynchronous
+    operations without falling into callback hell.</p>
+  <pre>
+     var demo = new Promise((res,)=>{
+      var a=10;
+      var b=10;
+      if(a===b);{
+        res("resolved")
+      }
+     })
+     async function sample(){
+      let a = await demo;
+      console.log(a);
+
+      console.log("welcome back")
+     }
+     sample()
+  </pre>
+
+  <h3>Question 8</h3>
+  <h3>Create examples to explain promise.all function?</h3>
+  <p>Ans:It s a powerful feature in JavaScript that allows you to handle multiple promises concurrently
+    and wait for all of them to resolve before proceeding.</p>
+  <pre>
+      p1 = Promise.resolve(50);
+      p2 = 200
+      p3 = new Promise(function(resolve, reject) {
+      setTimeout(resolve, 100, 'Shriyansh');
+      });
+      Promise.all([p1, p2, p3]).then(function(values) {
+      document.write(values);
+      });
+    </pre>
+</body>
+
+</html>
